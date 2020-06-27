@@ -1,8 +1,8 @@
+// Copyright 2018-2020 @Orzv. All rights reserved. MIT license.
+
 const dict = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
 
-/**
- * Encoding source to Base32
- */
+/** Encoding source to Base32 */
 export function encode(src: string | Uint8Array, padding: boolean = false): string {
 	let arr: Array<number> = Array.from(
 		typeof src === 'string' ? new TextEncoder().encode(src) : src
@@ -18,10 +18,7 @@ export function encode(src: string | Uint8Array, padding: boolean = false): stri
 	return padding ? res.padEnd(Math.ceil(res.length / 8) * 8, '=') : res
 }
 
-/**
- * Decoding Base32 to string or buffer.
- * Output type support utf8 | buffer
- */
+/** Decoding Base32 to string or buffer. */
 export function decode(src: string, output: OutputType = 'utf8'): string | Uint8Array {
 	if (!/^[2-7a-z\=]*$/i.test(src)) throw new Error('Invalid format')
 	let arr = Array.from(src.replace(/\=/g, '').toUpperCase()).map(i => dict.indexOf(i))
